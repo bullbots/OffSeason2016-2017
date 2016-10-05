@@ -11,16 +11,26 @@ public class SolenoidBoth {
 	private Solenoid solenoidOn;
 	private Solenoid solenoidOff;
 	
+	/**
+	 * @param portOn
+	 * @param portOff
+	 */
 	public SolenoidBoth(int portOn, int portOff){
 		solenoidOn= new Solenoid(portOn);
 		solenoidOff= new Solenoid(portOff);
 	}
 	
+	/**
+	 * 
+	 */
 	public void turnOff(){
 		solenoidOn.set(false);
 		solenoidOff.set(true);
 	}
 	
+	/**
+	 * 
+	 */
 	public void turnOn(){
 		solenoidOff.set(false);
 		solenoidOn.set(true);

@@ -35,7 +35,7 @@ public class PnController {
 	/**
 	 * Turns all compressors off that are on the system.
 	 */
-	public void turnOffCompressorsOff(){
+	public void turnAllCompressorsOff(){
 		for(Compressor c : compressors){
 			c.setClosedLoopControl(false);
 		}

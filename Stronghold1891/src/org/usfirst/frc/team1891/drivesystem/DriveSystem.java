@@ -2,11 +2,8 @@ package org.usfirst.frc.team1891.drivesystem;
 import java.util.LinkedList;
 import org.usfirst.frc.team1891.filewriter.*;
 import org.usfirst.frc.team1891.joysticks.JoyVector;
-import org.usfirst.frc.team1891.machinestate2016.Point;
 
-import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class controls the drive system as a whole for the robot. There are a few configuration methods that should
@@ -18,13 +15,9 @@ public class DriveSystem {
 
 	private static LinkedList<MotorAndSide> motorList= null;
 	private static double rampRate=1;
-	private static double test=0;
 	LogWriter log = new LogWriter();
 	Timer rampTime = new Timer();//Timer used for the rampRate. 
 	private double distancePerWheelRevolution=0; //The distance the robot travels per revolution of the wheel
-	private static double handicapCompensation=0.4;
-	private static LinkedList<Point> drivePath;
-	private static boolean hasDrivePath=false;
 	/**
 	 * @return the distance moved per revolution of the wheel
 	 */
@@ -39,9 +32,6 @@ public class DriveSystem {
 		this.distancePerWheelRevolution = distancePerWheelRevolution;
 	}
 
-	//TODO: Involve these variables in the voltage equation.
-	private static int rightSideReverse=1;//Set to negative one if the right side needs negative voltage.
-	private static int leftSideReverse=-1;//Set to positive one if the left side needs positive voltage.
 	/**
 	 * Enumeration with all the different drive system.
 	 *Can be easily expanded for more use. Commented drive systems are not in use.
@@ -107,7 +97,6 @@ public class DriveSystem {
 	 * This method should be used primarily in telop as autonomous drive will operate differently.
 	 * @param vec the vector to drive on.
 	 */
-	@SuppressWarnings("null")
 	public void drive(JoyVector vec){
 		switch(currentDrive){
 		case TANK_DRIVE://Copy case statements for different drive systems.
@@ -143,25 +132,6 @@ public class DriveSystem {
 	 * Method to configure the inverseness of the right side of the robot.
 	 * @param invrt true if the right side needs negative voltage, false if positive voltage.
 	 */
-	public void setRightSideInverse(boolean invrt){
-		if(invrt){
-			rightSideReverse=-1;
-		}else{
-			rightSideReverse=1;
-		}
-	}
-
-	/**
-	 * Method to configure the inverseness of the right side of the robot.
-	 * @param invrt true if the left side needs negative voltage, false if positive voltage.
-	 */
-	public void setLeftSideInverse(boolean invrt){
-		if(invrt){
-			leftSideReverse=-1;
-		}else{
-			leftSideReverse=1;
-		}
-	}
 
 	private static void driveTankDrive(JoyVector vec){
 

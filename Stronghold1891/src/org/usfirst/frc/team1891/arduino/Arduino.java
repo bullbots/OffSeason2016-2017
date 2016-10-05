@@ -82,6 +82,9 @@ public class Arduino {
 		write(value1,value2,value3);
 	}
 	
+	/**
+	 * 
+	 */
 	public void lowBattery()
 	{
 		lowBat = true;
