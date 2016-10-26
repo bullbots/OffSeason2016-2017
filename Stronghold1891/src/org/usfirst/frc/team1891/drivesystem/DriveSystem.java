@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import org.usfirst.frc.team1891.filewriter.*;
 import org.usfirst.frc.team1891.joysticks.JoyVector;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -161,9 +162,9 @@ public class DriveSystem {
 				}
 			}else if(m.talonSRX!=null){
 				if(m.side.equals("RIGHT")){
-					m.getTalonSRX().setVoltage(rightSideVoltage);
+					m.getTalonSRX().set(rightSideVoltage);
 				}else{
-					m.getTalonSRX().setVoltage(leftSideVoltage);
+					m.getTalonSRX().set(leftSideVoltage);
 				}
 			}
 		}
@@ -194,12 +195,12 @@ public class DriveSystem {
 
 				if(m.side.equals("RIGHT")){
 					if(m.isMaster()){
-						m.getTalonSRX().setPositionPID(rightSideVoltage);
+						m.getTalonSRX().set(rightSideVoltage);
 					}
 				}else{
 
 					if(m.isMaster()){
-						m.getTalonSRX().setPositionPID(leftSideVoltage);
+						m.getTalonSRX().set(leftSideVoltage);
 					}
 				}
 			}
@@ -220,7 +221,7 @@ public class DriveSystem {
 				if(m.jag!=null){
 					m.getJag().initVoltage();
 				}else if(m.talonSRX!=null){
-					m.getTalonSRX().initVoltage();
+					m.getTalonSRX().init(CANTalon.TalonControlMode.Voltage);
 				}
 			}else if(currentDrive == driveModes.TANK_DRIVE_PID){
 				//TODO: change to generalize
@@ -228,17 +229,19 @@ public class DriveSystem {
 					m.getJag().initSpeed();
 				}else if(m.talonSRX!=null){
 					if(m.isMaster){
-						m.getTalonSRX().initSpeed();
+						m.getTalonSRX().init(CANTalon.TalonControlMode.Speed);
 						if(m.getSide()=="RIGHT"){
-							masterRight=m.getTalonSRX().getID();
+							masterRight=m.getTalonSRX().getDeviceID();
 						}else if(m.getSide()=="LEFT"){
-							masterLeft=m.getTalonSRX().getID();
+							masterLeft=m.getTalonSRX().getDeviceID();
 						}
 					}else{
 						if(m.getSide()=="RIGHT"){
-							m.getTalonSRX().followMeMode(masterRight);
+							m.getTalonSRX().changeControlMode(CANTalon.TalonControlMode.Follower);
+							m.getTalonSRX().set(masterRight);
 						}else if(m.getSide()=="LEFT"){
-							m.getTalonSRX().followMeMode(masterLeft);
+							m.getTalonSRX().changeControlMode(CANTalon.TalonControlMode.Follower);
+							m.getTalonSRX().set(masterLeft);
 						}
 					}
 				}
@@ -255,7 +258,7 @@ public class DriveSystem {
 			if(m.jag!=null){
 				m.getJag().initSpeed();
 			}else if(m.talonSRX!=null){
-				m.getTalonSRX().setBreak();
+				m.getTalonSRX().enableBrakeMode(true);
 			}
 
 		}

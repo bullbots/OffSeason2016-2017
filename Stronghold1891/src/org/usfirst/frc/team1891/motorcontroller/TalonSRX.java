@@ -17,14 +17,23 @@ public class TalonSRX extends CANTalon{
 		super(deviceNumber);
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * @param mode
+	 */
 	//Mode 0 is percent mode
 	//Mode 1 is position mode
 	//Mode 2 is speed mode
 	//Mode 3 is current mode
 	//Mode 4 is voltage mode
-	int codesPerRev;
-	CANTalon talon;
-	int test=0;
+	
+	public void init(TalonControlMode mode)
+	{
+		setControlMode(mode.value);
+		setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		configEncoderCodesPerRev(350);
+		enable();
+	}
 	
 		/* set the peak and nominal outputs, 12V means full */
 //		talon.configNominalOutputVoltage(+0.0f, -0.0f);
