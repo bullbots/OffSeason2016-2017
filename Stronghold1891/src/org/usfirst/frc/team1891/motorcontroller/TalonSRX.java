@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class TalonSRX {
 	
-	
 	//Mode 0 is percent mode
 	//Mode 1 is position mode
 	//Mode 2 is speed mode
@@ -24,12 +23,22 @@ public class TalonSRX {
 
 	/**
 	 * @param talon 
+	 * @param state 
 	 * 
 	 */
-	public TalonSRX(CANTalon talon)
+	public TalonSRX(CANTalon talon, TalonControlMode state)
 	{
 		this.talon = talon;
 		codesPerRev = 350;
+		setMode(state);
+	}
+	
+	/**
+	 * @param state
+	 */
+	public void setMode(TalonControlMode state)
+	{
+		talon.setControlMode(state.value);
 	}
 	
 	/**
